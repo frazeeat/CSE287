@@ -81,6 +81,8 @@
   <ItemGroup>
     <ClInclude Include="BasicIncludesAndDefines.h" />
     <ClInclude Include="ColorBuffer.h" />
+    <ClInclude Include="ConvexPolygon.h" />
+    <ClInclude Include="Elipsoid.h" />
     <ClInclude Include="HitRecord.h" />
     <ClInclude Include="Lab5.h" />
     <ClInclude Include="Lights.h" />
@@ -92,6 +94,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorBuffer.cpp" />
+    <ClCompile Include="ConvexPolygon.cpp" />
+    <ClCompile Include="Elipsoid.cpp" />
     <ClCompile Include="Lab5.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="QuadricSurface.cpp" />

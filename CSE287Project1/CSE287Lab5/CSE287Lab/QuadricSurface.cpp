@@ -17,6 +17,7 @@ QuadricSurface::QuadricSurface( const vec3 & position, const color & mat )
 	//J = -9;
 
 	// Cylinder
+	/*
 	A = 1;
 	B = 0;
 	C = 1;
@@ -27,18 +28,19 @@ QuadricSurface::QuadricSurface( const vec3 & position, const color & mat )
 	H = 0;
 	I = 0;
 	J = -1;
+	*/
 
 	// Paraboloid
-	//A = 0;
-	//B = 1;
-	//C = 1;
-	//D = 0;
-	//E = 0;
-	//F = 0;
-	//G = -1;
-	//H = 0;
-	//I = 0;
-	//J = 0;
+	A = -1;
+	B = 1;
+	C = 1;
+	D = 0;
+	E = 0;
+	F = 0;
+	G = 0;
+	H = 0;
+	I = 0;
+	J = -1;
 
 }
 

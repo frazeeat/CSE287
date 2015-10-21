@@ -1,4 +1,5 @@
 #pragma once
+#define EPSILON 1.0E-2f
 
 #include "BasicIncludesAndDefines.h"
 
@@ -20,7 +21,7 @@ struct LightSource
 		: lightColor(color) 
 	{}
 
-	virtual color illuminate(const vec3 & eyeVector, HitRecord & closestHit)
+	virtual color illuminate(const vec3 & eyeVector, HitRecord & closestHit, vector<Surface*> surfaces)
 	{
 		color return_color;
 		return_color.r = closestHit.material.r *lightColor.r;
@@ -48,18 +49,41 @@ struct PositionalLight : public LightSource
 		: LightSource(color), position(position)
 	{}
 
-	virtual color illuminate(const vec3 & eyeVector, HitRecord & closestHit)
+	virtual color illuminate(const vec3 & eyeVector, HitRecord & closestHit, vector<Surface*> surfaces)
 	{
-		int shiney = 200;
+		int shiney = 255;
 		color white = color(1.0f, 1.0f, 1.0f, 1.0f);
 		vec3 n = closestHit.surfaceNormal;
 		vec3 v = normalize(eyeVector - closestHit.interceptPoint);
 		vec3 l = normalize(position - closestHit.interceptPoint);
 		vec3 h = normalize(v + l);
-		vec3 r = normalize((-l - 2 * dot(l, n)*n));
-		color return_color;
-		return_color = max(0.0f, dot(n, l))*lightColor*closestHit.material + std::pow(dot(r, v), shiney)*white*lightColor + std::pow(dot(n, h), shiney)*white*lightColor;
-		return return_color;
+
+		
+		HitRecord hr_temp;
+		hr_temp.t = FLT_MAX;
+		vec3 point = closestHit.interceptPoint + (EPSILON * closestHit.surfaceNormal);
+		for (int i = 0; i < surfaces.size(); i++){
+			HitRecord hr = surfaces[i]->findClosestIntersection(point, -l);
+			if (hr.t < hr_temp.t)
+			{
+				hr_temp = hr;
+			}
+		}
+
+		float toLight = distance(point, position);
+		float toCept = distance(point, hr_temp.interceptPoint);
+		if (hr_temp.t < FLT_MAX  && hr_temp.t < 0 && toLight > toCept) {
+			return color(0.0f, 0.0f, 0.0f, 1.0f);
+		}
+		
+		color diffuse = max(0.0f, dot(n, l))*lightColor*closestHit.material;
+		color specular = pow(max(0.0f, dot(n, h)), shiney)*white*white;
+		return diffuse + specular;
+
+	}
+	float distance(vec3 a, vec3 b)
+	{
+		return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2) + pow(b.z - a.z, 2));
 	}
 
 	/**
@@ -80,18 +104,31 @@ struct DirectionalLight : public LightSource
 		: LightSource(color), direction(normalize(direction))
 	{}
 
-	virtual color illuminate(const vec3 & eyeVector, HitRecord & closestHit)
+	virtual color illuminate(const vec3 & eyeVector, HitRecord & closestHit, vector<Surface*> surfaces)
 	{
-		int shiney = 200;
+		int shiney = 255;
 		color white = color(1.0f, 1.0f, 1.0f, 1.0f);
 		vec3 n = closestHit.surfaceNormal;
 		vec3 v = normalize(eyeVector - closestHit.interceptPoint);
 		vec3 l = normalize(direction - closestHit.interceptPoint);
 		vec3 h = normalize(v + l);
-		vec3 r = normalize((-l - 2 * dot(l, n)*n));
-		color return_color;
-		return_color = max(0.0f, dot(n, l))*lightColor*closestHit.material + std::pow(dot(r, v), shiney)*white*lightColor;
-		return return_color;
+
+		
+		for (int i = 0; i < surfaces.size(); i++){
+			vec3 point = closestHit.interceptPoint + (EPSILON * closestHit.surfaceNormal);
+			HitRecord hr = surfaces[i]->findClosestIntersection(point, l);
+			if (hr.t < FLT_MAX)
+			{
+				if (hr.t < 0) {
+					return color(0.0f, 0.0f, 0.0f, 1.0f);
+				}
+			}
+		}
+		
+		color diffuse = max(0.0f, dot(n, l))*lightColor*closestHit.material;
+		color specular = pow(max(0.0f, dot(n, h)), shiney)*white*white;
+		return diffuse + specular;
+
 	}
 
 	/**

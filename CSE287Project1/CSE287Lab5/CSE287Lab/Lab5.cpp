@@ -7,22 +7,25 @@
 // For calculating frame rate
 int totalFrames = 0;
 
-#define winWidth 700
-#define winHeight 500
+#define winWidth 300
+#define winHeight 300
 
 ColorBuffer colorBuffer(winWidth, winHeight);
 
 RayTracer rayTrace(colorBuffer);
 
 vector<Surface*> surfaces;
-
-Sphere redBall(vec3(0.0f, 0.0f, -10.0f), 1.5f, color(0.8f, 0.3f, 0.3f, 1.0f));
-Sphere blueBall(vec3(4.0f, 0.0f, -10.0f), 1.5f, color(0.0f, 0.980f, 0.604f, 1.0f));
-Plane plane(vec3(0.0f, -5.0f, -1.0f), vec3(0.0f, 1.0f, 0.0f),color(0.5f, 0.2f, 0.57f, 1.0f));
+vector<vec3> vec{ vec3(5, 5, -8), vec3(0, 0, -12), vec3(10, 0, -8) };
+ConvexPolygon polygon(vec, color(0.0f, 0.980f, 0.604f, 1.0f));
+Elipsoid elip(vec3(0.0f, -1.5f, -5.0f), color(0.0f, 0.980f, 0.604f, 1.0f),1,9,10 );
+//QuadricSurface quad(vec3(0.0f, 0.0f, -5.0f), color(0.8f, 0.3f, 0.3f, 1.0f));
+//Sphere redBall(vec3(0.0f, 0.0f, -10.0f), 1.5f, color(0.8f, 0.3f, 0.3f, 1.0f));
+//Sphere blueBall(vec3(4.0f, 0.0f, -10.0f), 1.5f, color(0.0f, 0.980f, 0.604f, 1.0f));
+Plane plane(vec3(0.0f, -3.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f),color(0.5f, 0.2f, 0.57f, 1.0f));
 
 vector<LightSource*> lights;
 
-LightSource ambientLight(color(0.0f, 0.0f, 0.0f, 1.0));
+LightSource ambientLight(color(0.1f, 0.1f, 0.1f, 1.0));
 PositionalLight lightPos(vec3(5, 5, 0), vec4(.75, .75, .75, 1));
 DirectionalLight lightDir(vec3(-5, -5, 0), vec4(.75, .75, .75, 1));
 
@@ -105,8 +108,10 @@ static void SpecialKeysCB(int key, int x, int y)
 void buildScene()
 {
 	surfaces.push_back(&plane);
-	surfaces.push_back(&redBall);
-	surfaces.push_back(&blueBall);
+	//surfaces.push_back(&redBall);
+	surfaces.push_back(&elip);
+	//surfaces.push_back(&blueBall);
+	surfaces.push_back(&polygon);
 	lights.push_back(&lightPos);
 	lights.push_back(&lightDir);
 	lights.push_back(&ambientLight);

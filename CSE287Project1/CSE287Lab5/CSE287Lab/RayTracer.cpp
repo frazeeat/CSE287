@@ -1,5 +1,5 @@
 #include "RayTracer.h"
-
+#define EPSILON 1.0E-4f
 
 RayTracer::RayTracer(ColorBuffer & cBuffer, color defaultColor )
 	:colorBuffer(cBuffer), defaultColor(defaultColor)
@@ -73,19 +73,22 @@ void RayTracer::raytraceScene(vector<Surface*> surfaces, vector<LightSource*> li
 	for (int i = 0; i < colorBuffer.getWindowHeight(); i++){
 		for (int j = 0; j < colorBuffer.getWindowWidth(); j++){
 			setPerspectiveRayOriginAndDirection(j, i);
-			colorBuffer.setPixel(j, i, traceIndividualRay(rayOrigin, rayDirection));
+			colorBuffer.setPixel(j, i, traceIndividualRay(rayOrigin, rayDirection, 2));
 		}
 	}
 
 } // end raytraceScene
 
 
-color RayTracer::traceIndividualRay(const vec3 &e, const vec3 &d)
+color RayTracer::traceIndividualRay(const vec3 &e, const vec3 &d,int rec)
 {
 	HitRecord hr, hr_temp;
 	hr_temp.t=FLT_MAX;
 	hr_temp.material = defaultColor;
 	color totalLight;
+	if (rec <= 0) {
+		return color(0.0f, 0.0f, 0.0f, 1.0f);
+	}
 
 	for (int i = 0; i < (int)surfacesInScene.size(); i++){
 		hr = surfacesInScene[i]->findClosestIntersection(e, d);
@@ -94,9 +97,13 @@ color RayTracer::traceIndividualRay(const vec3 &e, const vec3 &d)
 		}		
 	}
 	for (int j = 0; j < (int)lightsInScene.size(); j++) {
-		totalLight += lightsInScene[j]->illuminate(-d, hr_temp);
+		totalLight += lightsInScene[j]->illuminate(-d, hr_temp,surfacesInScene);
 	}
-	return hr_temp.material+totalLight;
+	if (hr_temp.t == FLT_MAX){
+		return totalLight;
+	}
+	vec3 reflection = d - 2 * dot(d, hr_temp.surfaceNormal) * hr_temp.surfaceNormal;
+	return totalLight+traceIndividualRay(hr_temp.interceptPoint + (EPSILON * hr_temp.surfaceNormal), -reflection, rec - 1);
 	// TODO
 	
 	

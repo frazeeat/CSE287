@@ -5,6 +5,8 @@
 #include "Surface.h"
 #include "Sphere.h"
 #include "Plane.h"
+#include "ConvexPolygon.h"
+#include "Elipsoid.h"
 
 #include "Lights.h"
 
@@ -78,7 +80,7 @@ protected:
 	* @param d - unit length vector representing the direction of the ray
 	* @returns color for the point of intersection
 	*/
-	color traceIndividualRay(const vec3 &e, const vec3 &d);
+	color traceIndividualRay(const vec3 &e, const vec3 &d,int rec);
 
 	/**
 	* Sets the rayOrigin and rayDirection data members of the class based on row and
