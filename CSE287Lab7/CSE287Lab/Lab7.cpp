@@ -181,7 +181,28 @@ void problem5()
 // Rotate the triangle by negative 90 degrees.
 void problem6()
 {
+	
+	mat3 matrix(1.0f);
 
+	cout << glm::cos(glm::degrees(90.0f)) << endl;
+	cout << glm::sin(glm::degrees(90.0f)) << endl;
+	cout << -glm::sin(glm::degrees(90.0f)) << endl;
+	cout << glm::cos(glm::degrees(90.0f)) << endl;
+	
+	matrix[0][0] = glm::round(glm::cos(glm::degrees(90.0f)));
+	matrix[0][1] = glm::round(-glm::sin(glm::degrees(90.0f)));
+	matrix[1][0] = glm::round(glm::sin(glm::degrees(90.0f)));
+	matrix[1][1] = glm::round(glm::cos(glm::degrees(90.0f)));
+	
+	vector<vec3> transformedVert;
+	
+
+	for (int i = 0; i < (int)triangleVertices.size(); i++) {
+
+		transformedVert.push_back(matrix* triangleVertices[i]);
+	}
+
+	drawFilledTriangle(transformedVert, color(1.0f, 0.0f, 0.0f, 1.0f));
 
 } // end Problem6
 
