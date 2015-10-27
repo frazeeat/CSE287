@@ -183,11 +183,6 @@ void problem6()
 {
 	
 	mat3 matrix(1.0f);
-
-	cout << glm::cos(glm::degrees(90.0f)) << endl;
-	cout << glm::sin(glm::degrees(90.0f)) << endl;
-	cout << -glm::sin(glm::degrees(90.0f)) << endl;
-	cout << glm::cos(glm::degrees(90.0f)) << endl;
 	
 	matrix[0][0] = glm::round(glm::cos(glm::degrees(90.0f)));
 	matrix[0][1] = glm::round(-glm::sin(glm::degrees(90.0f)));
@@ -212,6 +207,28 @@ void problem6()
 // position by 180 degrees.
 void problem7()
 {
+	
+
+	mat3 trans(1.0f);
+	trans[2][0] = 200;
+	trans[2][1] = 300;
+
+	mat3 rot(1.0f);
+	//no idea why this works.
+	rot[0][0] = glm::round(glm::cos(glm::degrees(179.9f)));
+	rot[0][1] = glm::round(glm::sin(glm::degrees(179.9f)));
+	rot[1][0] = glm::round(-glm::sin(glm::degrees(179.9f)));
+	rot[1][1] = glm::round(glm::cos(glm::degrees(179.9f)));
+
+	vector<vec3> transformedVert;
+
+
+	for (int i = 0; i < (int)triangleVertices.size(); i++) {
+
+		transformedVert.push_back(trans*rot* triangleVertices[i]);
+	}
+
+	drawFilledTriangle(transformedVert, color(1.0f, 0.0f, 0.0f, 1.0f));
 
 
 
@@ -223,6 +240,27 @@ void problem7()
 void problem8()
 {
 	static float angle = 0.0f;
+	angle = angle+.001f;
+	mat3 trans(1.0f);
+	trans[2][0] = 200;
+	trans[2][1] = 300;
+
+	mat3 rot(1.0f);
+	//no idea why this works.
+	rot[0][0] = glm::cos(glm::degrees(angle));
+	rot[0][1] = glm::sin(glm::degrees(angle));
+	rot[1][0] = -glm::sin(glm::degrees(angle));
+	rot[1][1] = glm::cos(glm::degrees(angle));
+
+	vector<vec3> transformedVert;
+
+
+	for (int i = 0; i < (int)triangleVertices.size(); i++) {
+
+		transformedVert.push_back(trans*rot* triangleVertices[i]);
+	}
+
+	drawFilledTriangle(transformedVert, color(1.0f, 0.0f, 0.0f, 1.0f));
 
 
 
