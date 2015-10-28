@@ -7,21 +7,23 @@
 // For calculating frame rate
 int totalFrames = 0;
 
-#define winWidth 300
-#define winHeight 300
+#define winWidth 1920
+#define winHeight 1080
 
 ColorBuffer colorBuffer(winWidth, winHeight);
 
 RayTracer rayTrace(colorBuffer);
 
 vector<Surface*> surfaces;
-vector<vec3> vec{ vec3(5, 5, -8), vec3(0, 0, -12), vec3(10, 0, -8) };
-ConvexPolygon polygon(vec, color(0.0f, 0.980f, 0.604f, 1.0f));
-Elipsoid elip(vec3(0.0f, -1.5f, -5.0f), color(0.0f, 0.980f, 0.604f, 1.0f),1,9,10 );
+vector<vec3> list{ vec3(1, 2, -12), vec3(-1, 2, -12), vec3(-1, 0, -12), vec3(1, 0, -12) };
+ConvexPolygon polygon(list, color(0.0f, 0.980f, 0.604f, 1.0f));
+vector<vec3> list1{ vec3(-1, 0, -12), vec3(0, -2, -18), vec3(1, 0, -12) };
+ConvexPolygon poly(list1, color(0.855f, 0.647f, 0.125f, 1.0f));
+Elipsoid elip(vec3(0.0f, -1.5f, -10.0f), color(0.0f, 0.980f, 0.604f, 1.0f),1,9,10 );
 //QuadricSurface quad(vec3(0.0f, 0.0f, -5.0f), color(0.8f, 0.3f, 0.3f, 1.0f));
-//Sphere redBall(vec3(0.0f, 0.0f, -10.0f), 1.5f, color(0.8f, 0.3f, 0.3f, 1.0f));
-//Sphere blueBall(vec3(4.0f, 0.0f, -10.0f), 1.5f, color(0.0f, 0.980f, 0.604f, 1.0f));
-Plane plane(vec3(0.0f, -3.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f),color(0.5f, 0.2f, 0.57f, 1.0f));
+Sphere redBall(vec3(-3.0f, -1.0f, -12.0f), 1.5f, color(0.8f, 0.3f, 0.3f, 1.0f));
+Sphere blueBall(vec3(3.0f, -1.0f, -12.0f), 1.5f, color(0.0f, 0.980f, 0.604f, 1.0f));
+Plane plane(vec3(0.0f, -3.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f),color(0.980f, 0.922f, 0.843f, 1.0f));
 
 vector<LightSource*> lights;
 
@@ -108,10 +110,11 @@ static void SpecialKeysCB(int key, int x, int y)
 void buildScene()
 {
 	surfaces.push_back(&plane);
-	//surfaces.push_back(&redBall);
+	surfaces.push_back(&redBall);
 	surfaces.push_back(&elip);
-	//surfaces.push_back(&blueBall);
+	surfaces.push_back(&blueBall);
 	surfaces.push_back(&polygon);
+	surfaces.push_back(&poly);
 	lights.push_back(&lightPos);
 	lights.push_back(&lightDir);
 	lights.push_back(&ambientLight);
