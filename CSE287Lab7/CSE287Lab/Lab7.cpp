@@ -208,17 +208,17 @@ void problem6()
 void problem7()
 {
 	
-
+	static float angle = 180.0f;
 	mat3 trans(1.0f);
 	trans[2][0] = 200;
 	trans[2][1] = 300;
 
 	mat3 rot(1.0f);
 	//no idea why this works.
-	rot[0][0] = glm::round(glm::cos(glm::degrees(179.9f)));
-	rot[0][1] = glm::round(glm::sin(glm::degrees(179.9f)));
-	rot[1][0] = glm::round(-glm::sin(glm::degrees(179.9f)));
-	rot[1][1] = glm::round(glm::cos(glm::degrees(179.9f)));
+	rot[0][0] = glm::round(glm::cos(glm::radians(angle)));
+	rot[0][1] = glm::round(glm::sin(glm::radians(angle)));
+	rot[1][0] = glm::round(-glm::sin(glm::radians(angle)));
+	rot[1][1] = glm::round(glm::cos(glm::radians(angle)));
 
 	vector<vec3> transformedVert;
 
@@ -346,13 +346,24 @@ void problem10() {
 // glutGet( GLUT_WINDOW_HEIGHT ).
 void problem11()
 {
-	int width = glutGet( GLUT_WINDOW_WIDTH );
-	
-	static float move = 0.0;
+	static int width = glutGet( GLUT_WINDOW_WIDTH )/2;
 	
 	
+	static int move = 0.0;
+	static int direction = 1;
 	
-	move++;
+	
+	move = move + direction;
+	width = glutGet(GLUT_WINDOW_WIDTH)/2;
+
+	if (move > width){
+		direction = -1;
+	}
+	if (move < -width){
+		direction = 1;
+	}
+
+	
 	
 	cout << "Width:"<< width << endl;
 	cout << "Move:" << move << endl;
