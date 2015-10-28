@@ -271,6 +271,29 @@ void problem8()
 // direction around the origin at a distance of 400 pixels.
 void problem9()
 {
+	static float angle = 0.0f;
+	angle = angle + .001f;
+	mat3 trans(1.0f);
+	trans[2][0] = 400;
+	
+
+	mat3 rot(1.0f);
+	
+	rot[0][0] = glm::cos(glm::degrees(angle));
+	rot[0][1] = glm::sin(glm::degrees(angle));
+	rot[1][0] = -glm::sin(glm::degrees(angle));
+	rot[1][1] = glm::cos(glm::degrees(angle));
+
+	vector<vec3> transformedVert;
+
+
+	for (int i = 0; i < (int)triangleVertices.size(); i++) {
+
+		transformedVert.push_back(rot*trans* triangleVertices[i]);
+	}
+
+	drawFilledTriangle(transformedVert, color(1.0f, 0.0f, 0.0f, 1.0f));
+
 
 
 } // end Problem9
@@ -281,6 +304,37 @@ void problem9()
 // the triagle always points at the top of the screen while it orbits.
 void problem10() {
 
+	static float angle = 0.0f;
+	static float angle1 = 0.0f;
+	angle = angle + .001f;
+	angle1 = angle1 - .001f;
+	mat3 trans(1.0f);
+	trans[2][0] = 400;
+
+
+	mat3 rot(1.0f);
+
+	rot[0][0] = glm::cos(glm::degrees(angle));
+	rot[0][1] = glm::sin(glm::degrees(angle));
+	rot[1][0] = -glm::sin(glm::degrees(angle));
+	rot[1][1] = glm::cos(glm::degrees(angle));
+
+	mat3 rot1(1.0f);
+
+	rot1[0][0] = glm::cos(glm::degrees(angle1));
+	rot1[0][1] = glm::sin(glm::degrees(angle1));
+	rot1[1][0] = -glm::sin(glm::degrees(angle1));
+	rot1[1][1] = glm::cos(glm::degrees(angle1));
+
+	vector<vec3> transformedVert;
+
+
+	for (int i = 0; i < (int)triangleVertices.size(); i++) {
+
+		transformedVert.push_back(rot*trans*rot1* triangleVertices[i]);
+	}
+
+	drawFilledTriangle(transformedVert, color(1.0f, 0.0f, 0.0f, 1.0f));
 
 
 } // end Problem10
@@ -292,8 +346,28 @@ void problem10() {
 // glutGet( GLUT_WINDOW_HEIGHT ).
 void problem11()
 {
+	int width = glutGet( GLUT_WINDOW_WIDTH );
+	
+	static float move = 0.0;
+	
+	
+	
+	move++;
+	
+	cout << "Width:"<< width << endl;
+	cout << "Move:" << move << endl;
 
+	mat3 trans(1.0f);
+	trans[2][0] = move;
 
+	vector<vec3> transformedVert;
+
+	for (int i = 0; i < (int)triangleVertices.size(); i++) {
+		transformedVert.push_back(trans* triangleVertices[i]);
+	}
+
+	drawFilledTriangle(transformedVert, color(1.0f, 0.0f, 0.0f, 1.0f));
+	
 
 } // end Problem11
 
