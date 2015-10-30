@@ -1,16 +1,16 @@
-﻿Build started 10/23/2015 11:15:27 AM.
-     1>Project "C:\Users\frazeeat\Desktop\CSE287Lab7\CSE287Lab7\CSE287Lab\CSE287Lab.vcxproj" on node 2 (Build target(s)).
+﻿Build started 10/28/2015 9:31:18 AM.
+     1>Project "C:\Users\atf14\OneDrive\Documents\GitHub\CSE287\CSE287Lab7\CSE287Lab\CSE287Lab.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (CSE287Lab.vcxproj).  This can lead to incorrect clean and rebuild behavior.
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Lab7.cpp
          Lab7.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\frazeeat\Desktop\CSE287Lab7\CSE287Lab7\Debug\CSE287Lab7.exe" /INCREMENTAL /NOLOGO glew32.lib freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\frazeeat\Desktop\CSE287Lab7\CSE287Lab7\Debug\CSE287Lab7.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\frazeeat\Desktop\CSE287Lab7\CSE287Lab7\Debug\CSE287Lab7.lib" /MACHINE:X86 Debug\ColorBuffer.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\atf14\OneDrive\Documents\GitHub\CSE287\CSE287Lab7\Debug\CSE287Lab7.exe" /INCREMENTAL /NOLOGO glew32.lib freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\atf14\OneDrive\Documents\GitHub\CSE287\CSE287Lab7\Debug\CSE287Lab7.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\atf14\OneDrive\Documents\GitHub\CSE287\CSE287Lab7\Debug\CSE287Lab7.lib" /MACHINE:X86 Debug\ColorBuffer.obj
          Debug\Lab7.obj
          Debug\ScanConversion.obj
-         CSE287Lab.vcxproj -> C:\Users\frazeeat\Desktop\CSE287Lab7\CSE287Lab7\Debug\CSE287Lab7.exe
-     1>Done Building Project "C:\Users\frazeeat\Desktop\CSE287Lab7\CSE287Lab7\CSE287Lab\CSE287Lab.vcxproj" (Build target(s)).
+         CSE287Lab.vcxproj -> C:\Users\atf14\OneDrive\Documents\GitHub\CSE287\CSE287Lab7\Debug\CSE287Lab7.exe
+     1>Done Building Project "C:\Users\atf14\OneDrive\Documents\GitHub\CSE287\CSE287Lab7\CSE287Lab\CSE287Lab.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.26
+Time Elapsed 00:00:02.35
