@@ -86,22 +86,52 @@ static void RenderSceneCB()
 	static float angle = glm::radians(45.0f);
 	
 	angle += glm::radians(1.0f);
+
+	static float angle1 = glm::radians(45.0f);
+
+	angle1 -= glm::radians(1.0f);
 	
 	// Set modeling transformation for the center pyramid
 	modelingTransformation = glm::translate(glm::vec3(0.0f, 0.0f, 0.0f))
-		*glm::rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));;
-	transformedVertices = pipeline(pyramidVertices);
-	drawManyFilledTriangles(transformedVertices, color(0.0f, 1.0f, 1.0f, 1.0f));
-
-	// Set modeling transformation for the center pyramid
-	modelingTransformation = glm::translate(glm::vec3(-3.0f, 0.0f, 0.0f))
-		*glm::rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));;
+		*glm::rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
 	transformedVertices = pipeline(pyramidVertices);
 	drawManyFilledTriangles(transformedVertices, color(1.0f, 0.0f, 0.0f, 1.0f));
 
+	// Set modeling transformation for the right pyramid
+	modelingTransformation = glm::translate(glm::vec3(3.0f, 0.0f, 0.0f))
+		*glm::rotate(angle, glm::vec3(1.0f, 0.0f, 0.0f));
+	transformedVertices = pipeline(pyramidVertices);
+	drawManyFilledTriangles(transformedVertices, color(0.0f, 1.0f, 1.0f, 1.0f));
+
+	// Set modeling transformation for the left pyramid
+	modelingTransformation = glm::translate(glm::vec3(-3.0f, 0.0f, 0.0f))
+		*glm::rotate(angle, glm::vec3(0.0f, 0.0f, 1.0f))
+		*glm::scale(glm::vec3(2.0f,2.0f,1.0f));
+	transformedVertices = pipeline(pyramidVertices);
+	drawManyFilledTriangles(transformedVertices, color(0.824f, 0.412f, 0.118f,1.0f));
+
+	// far out pyramid
+	modelingTransformation =  glm::rotate(angle1, glm::vec3(0.0f, 1.0f, 0.0f))
+		*glm::translate(glm::vec3(0.0f, 3.0f, -10.0f))
+		*glm::rotate(angle1, glm::vec3(0.0f, 0.0f, 1.0f));
+	transformedVertices = pipeline(pyramidVertices);
+	drawManyFilledTriangles(transformedVertices, color(1.000f, 0.271f, 0.0f, 1.0f));
+	
 	// Set Modeling transformation for the reference plane
 	modelingTransformation = glm::translate(glm::vec3(0.0f, -3.0f, 0.0f));
 	drawBoard();
+
+	//right back corner pyramid
+	modelingTransformation = glm::translate(glm::vec3(2.85f, -2.0f, -0.5f));
+	transformedVertices = pipeline(pyramidVertices);
+	drawManyFilledTriangles(transformedVertices, color(0.118f, 0.565f, 1.000f, 1.0f));
+
+	//left front corner pyramid
+	modelingTransformation = glm::translate(glm::vec3(-2.85f, -2.0f, 4.75f));
+	transformedVertices = pipeline(pyramidVertices);
+	drawManyFilledTriangles(transformedVertices, color(0.118f, 0.565f, 1.000f, 1.0f));
+
+
 
 	// Display the color buffer
 	colorBuffer.showColorBuffer();
@@ -222,10 +252,10 @@ int main(int argc, char** argv)
 	// Request that the window be made full screen
 	//glutFullScreenToggle();
 
-	color orchid(0.855, 0.439, 0.839, 1.0);
+	color aliceBlue(0.941f, 0.973f, 1.000f,1.0f);
 
 	// Set red, green, blue, and alpha to which the color buffer is cleared.
-	colorBuffer.setClearColor(orchid);
+	colorBuffer.setClearColor(aliceBlue);
 
 	// ************* Object vertex coordinate initialization ***********************
 
