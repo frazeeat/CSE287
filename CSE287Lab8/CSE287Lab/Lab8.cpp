@@ -122,12 +122,14 @@ static void RenderSceneCB()
 	drawBoard();
 
 	//right back corner pyramid
-	modelingTransformation = glm::translate(glm::vec3(2.85f, -2.0f, -0.5f));
+	modelingTransformation = glm::translate(glm::vec3(3.5f, -2.5f, -3.5f));
+	//modelingTransformation = glm::translate(glm::vec3(2.85f, -2.0f, -0.5f));
 	transformedVertices = pipeline(pyramidVertices);
 	drawManyFilledTriangles(transformedVertices, color(0.118f, 0.565f, 1.000f, 1.0f));
 
 	//left front corner pyramid
-	modelingTransformation = glm::translate(glm::vec3(-2.85f, -2.0f, 4.75f));
+	modelingTransformation = glm::translate(glm::vec3(-3.5f, -2.5f, 3.5f));
+	//modelingTransformation = glm::translate(glm::vec3(-2.85f, -2.0f, 4.75f));
 	transformedVertices = pipeline(pyramidVertices);
 	drawManyFilledTriangles(transformedVertices, color(0.118f, 0.565f, 1.000f, 1.0f));
 
@@ -309,7 +311,7 @@ int main(int argc, char** argv)
 	greeenPlaneVertices.push_back(glm::vec4(planeWidth / 2.0f, 0.0f, planeWidth / 2.0f, 1.0f));
 	
 	// Set the viewing tranformation for the scene
-	viewingTransformation = glm::translate( glm::vec3(0.0f, 0.0f, -12.0) );
+	viewingTransformation = glm::translate( glm::vec3(10.0f, 0.0f, -12.0) );
 
 	// Enter the GLUT main loop. Control will not return until the window is closed.
 	glutMainLoop();
