@@ -223,33 +223,42 @@ GameBoard::GameBoard(float gameWidth, color c1, color c2)
 	float x, z;
 	int int_width = floor(gameWidth), skip = 0,r=0;
 	int vert_per_row = floor(gameWidth) + 1;
-	//bool sw = false;
+	bool sw = false;
 	std::vector<glm::vec4> vector;
 	for (int i = 0; i <= int_width; i++){
 		x = -gameWidth / 2.0f + i;
 		for (int j = 0; j <= int_width; j++){
 			z = -gameWidth / 2.0f + j;
-			std::cout << "x: " << x << " z: "<< z << std::endl;
+			//std::cout << "x: " << x << " z: "<< z << std::endl;
 			vector.push_back(glm::vec4(x, 0.0f, z, 1.0f));
 		}
 	}
 	for (int k = 0; k < vector.size() - vert_per_row-1;k++){
-		if (k == int_width || k == int_width + (vert_per_row*skip)){
+		if (k == int_width + (vert_per_row*skip)){
 			skip++;
+			if (int_width%2 == 0){
+
+				if (sw){
+					sw = false;
+				}
+				else{
+					sw = true;
+				}
+			}
 		}
 		else{
 			glm::vec4 A = vector[k+1];
 			glm::vec4 B = vector[k];
 			glm::vec4 C = vector[k + vert_per_row];
 			glm::vec4 D = vector[k + vert_per_row+1];
-			if (k%2 == 0){
+			if (sw){
 				c1BoardVertices.push_back(A);
 				c1BoardVertices.push_back(B);
 				c1BoardVertices.push_back(C);
 				c1BoardVertices.push_back(A);
 				c1BoardVertices.push_back(C);
 				c1BoardVertices.push_back(D);
-				//sw = false;
+				sw = false;
 			}
 			else{
 				c2BoardVertices.push_back(A);
@@ -258,7 +267,7 @@ GameBoard::GameBoard(float gameWidth, color c1, color c2)
 				c2BoardVertices.push_back(A);
 				c2BoardVertices.push_back(C);
 				c2BoardVertices.push_back(D);
-				//sw = true;
+				sw = true;
 			}
 		}
 	}

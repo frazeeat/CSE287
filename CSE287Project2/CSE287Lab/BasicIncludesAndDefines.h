@@ -35,6 +35,7 @@ using namespace std;
 #include "ColorBuffer.h"
 #include "ScanConversion.h"
 #include "ShapeFunctions.h"
+#include "Camera.h"
 
 //#include "HitRecord.h"
 

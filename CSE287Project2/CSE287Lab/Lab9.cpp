@@ -41,6 +41,7 @@ Pyramid pyramid;
 Sphere sphere;
 Cube cube;
 GameBoard gameBoard;
+Camera camera;
 
 float rotationX = 0;
 float rotationY = 0;
@@ -119,20 +120,20 @@ static void RenderSceneCB()
 	pyramid.draw(color(0.0f, 0.0f, 1.0f, 1.0f));
 
 	// Set modeling transformation for the center pyramid
-	modelingTransformation = glm::translate(glm::vec3(0.0f, 0.0f, 0.0f)) * glm::rotate(angle,glm::vec3(0.0f, 1.0f, 0.0f));
-	cube.draw(color(1.0f, 0.0f, 0.0f, 1.0f));
+	//modelingTransformation = glm::translate(glm::vec3(0.0f, 0.0f, 0.0f)) * glm::rotate(angle,glm::vec3(0.0f, 1.0f, 0.0f));
+	//cube.draw(color(1.0f, 0.0f, 0.0f, 1.0f));
 
 	// Set modeling transformation for the right hand pyramid
-	modelingTransformation = glm::translate(glm::vec3(3.0f, 0.0f, 0.0f)) * glm::rotate(angle, glm::vec3(1.0f, 0.0f, 0.0f));
-	sphere.draw( color(1.0f, 1.0f, 0.0f, 1.0f));
+	//modelingTransformation = glm::translate(glm::vec3(3.0f, 0.0f, 0.0f)) * glm::rotate(angle, glm::vec3(1.0f, 0.0f, 0.0f));
+	//sphere.draw( color(1.0f, 1.0f, 0.0f, 1.0f));
 
 	// Set modeling transformation for the left hand pyramid
-	modelingTransformation = glm::translate(glm::vec3(-3.0f, 0.0f, 0.0f)) * glm::rotate(angle, glm::vec3(0.0f, 0.0f, 1.0f)) * glm::scale(glm::vec3(2.0f, 2.0f, 2.0f));
+	modelingTransformation = glm::translate(glm::vec3(-3.0f, 0.0f, 0.0f)) *glm::scale(glm::vec3(2.0f, 2.0f, 2.0f));
 	pyramid.draw( color(1.0f, 0.0f, 1.0f, 1.0f));
 
 	// Set modeling transformation for the orbiting pyramid
-	modelingTransformation = glm::rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f))* glm::translate(glm::vec3(10.0f, 3.0f, 0.0f)) *glm::rotate(-angle, glm::vec3(1.0f, 0.0f, 0.0f));
-	pyramid.draw( color(1.0f, 1.0f, 1.0f, 1.0f));
+	//modelingTransformation = glm::rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f))* glm::translate(glm::vec3(10.0f, 3.0f, 0.0f)) *glm::rotate(-angle, glm::vec3(1.0f, 0.0f, 0.0f));
+	//pyramid.draw( color(1.0f, 1.0f, 1.0f, 1.0f));
 
 	// Display the color buffer
 	colorBuffer.showColorBuffer();
@@ -376,7 +377,13 @@ int main(int argc, char** argv)
 	colorBuffer.setClearColor(blue);
 	
 	// Set the initial viewing tranformation for the scene
-	viewingTransformation = glm::translate( glm::vec3(0.0f, 0.0f, -12.0) );
+	glm::vec3 p = glm::vec3(0.0f, 0.0f, 12.0f);
+	glm::vec3 d = glm::vec3(0.0f, 0.0f, -1.0f);
+	glm::vec3 u = glm::vec3(0.0f, 1.0f, 0.0f);
+
+	camera.setPositionDirectionUp(p,d,u);
+	viewingTransformation = camera.getViewingTransformation();
+	//viewingTransformation = glm::translate( glm::vec3(0.0f, 0.0f, -12.0) );
 
 	// Enter the GLUT main loop. Control will not return until the window is closed.
 	glutMainLoop();
