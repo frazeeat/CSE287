@@ -25,6 +25,11 @@ glm::mat4 modelingTransformation;
 glm::mat4 viewingTransformation;
 glm::mat4 projectionTransformation;
 glm::mat4 viewportTransformation;
+glm::vec3 p;
+glm::vec3 d;
+glm::vec3 u;
+glm::vec3 a;
+float ang;
 
 // View port limits
 float xVpMin, yVpMin, xVpMax, yVpMax;
@@ -105,35 +110,41 @@ static void RenderSceneCB()
 
 	static float angle = glm::radians(45.0f);
 
-	angle += glm::radians(1.0f);
+	angle += glm::radians(0.1f);
 
 	// Set Modeling transformation for the reference plane
 	modelingTransformation = glm::translate(glm::vec3(0.0f, -3.0f, 0.0f));
 	gameBoard.draw();
 
-	// Set modeling transformation for the front left pyramid
-	modelingTransformation = glm::translate(glm::vec3(-3.5f, -2.5f, 3.5f));
-	pyramid.draw(color(0.0f, 0.0f, 1.0f, 1.0f));
 
-	// Set modeling transformation for the back right pyramid
+
+
+	// Set modeling transformation for the back right pyramid on top of cube
+	modelingTransformation = glm::translate(glm::vec3(3.5f, -1.5f, -3.5f));
+	pyramid.draw(color(0.502f, 0.0f, 0.502f, 1.0f));
+
+	//cube under pyramid
 	modelingTransformation = glm::translate(glm::vec3(3.5f, -2.5f, -3.5f));
-	pyramid.draw(color(0.0f, 0.0f, 1.0f, 1.0f));
+	cube.draw(color(0.502f, 0.0f, 0.502f, 1.0f));
+
+
+
 
 	// Set modeling transformation for the center pyramid
-	//modelingTransformation = glm::translate(glm::vec3(0.0f, 0.0f, 0.0f)) * glm::rotate(angle,glm::vec3(0.0f, 1.0f, 0.0f));
-	//cube.draw(color(1.0f, 0.0f, 0.0f, 1.0f));
+	modelingTransformation = glm::translate(glm::vec3(-0.5f, -2.5f, -0.5f));
+	cube.draw(color(0.0f, 1.0f, 0.0f, 1.0f));
 
-	// Set modeling transformation for the right hand pyramid
-	//modelingTransformation = glm::translate(glm::vec3(3.0f, 0.0f, 0.0f)) * glm::rotate(angle, glm::vec3(1.0f, 0.0f, 0.0f));
-	//sphere.draw( color(1.0f, 1.0f, 0.0f, 1.0f));
+	// Set modeling transformation for the center pyramid
+	modelingTransformation = glm::translate(glm::vec3(0.5f, -2.5f, -0.5f));
+	cube.draw(color(1.0f, 1.0f, 0.0f, 1.0f));
 
-	// Set modeling transformation for the left hand pyramid
-	modelingTransformation = glm::translate(glm::vec3(-3.0f, 0.0f, 0.0f)) *glm::scale(glm::vec3(2.0f, 2.0f, 2.0f));
-	pyramid.draw( color(1.0f, 0.0f, 1.0f, 1.0f));
+	// red cube
+	modelingTransformation = glm::translate(glm::vec3(0.0f, -2.5f, 0.5f));
+	cube.draw(color(1.0f, 0.0f, 0.0f, 1.0f));
 
-	// Set modeling transformation for the orbiting pyramid
-	//modelingTransformation = glm::rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f))* glm::translate(glm::vec3(10.0f, 3.0f, 0.0f)) *glm::rotate(-angle, glm::vec3(1.0f, 0.0f, 0.0f));
-	//pyramid.draw( color(1.0f, 1.0f, 1.0f, 1.0f));
+	// Set modeling transformation for the center pyramid
+	modelingTransformation = glm::translate(glm::vec3(0.0f, -1.5f, 0.0f))*glm::rotate(4.0f, glm::vec3(0.0f, 1.0f, 0.0f));;
+	cube.draw(color(0.0f, 0.0f, 1.0f, 1.0f));
 
 	// Display the color buffer
 	colorBuffer.showColorBuffer();
@@ -276,42 +287,60 @@ void viewMenu(int value)
 		break;
 	case(1) :
 
-		viewingTransformation = glm::translate(glm::vec3(0.0f, 0.0f, -10.0));
+		p = glm::vec3(0.0f, 0.0f, 12.0f);
+		d = glm::vec3(0.0f, 0.0f, 0.0f);
+		u = glm::vec3(0.0f, 1.0f, 0.0f);
+
+		camera.setPositionDirectionUp(p, d, u);
+		a = camera.getWorldCoordinateViewPosition();
+		viewingTransformation = camera.getViewingTransformation();
+		std::cout << "{"
+			<< a.x << " " << a.y << " " << a.z
+			<< "}";
 
 		break;
 
 	case(2) :
-		 
-		viewingTransformation = glm::translate(glm::vec3(0.0f, 0.0f, -10.0))*
-			glm::rotate(glm::radians(45.0f), glm::vec3(1.0f, 0.0f, 0.0f));// TODO
+		p = glm::vec3(0.0f, 0.0f, -15.0f);
+		d = glm::vec3(0.0f, 0.0f, 0.0f);
+		u = glm::vec3(0.0f, 1.0f, 0.0f);
 
-
+		camera.setPositionDirectionUp(p, d, u);
+		a = camera.getWorldCoordinateViewPosition();
+		viewingTransformation = camera.getViewingTransformation();
+		std::cout << "{"
+			<< a.x << " " << a.y << " " << a.z
+			<< "}";
 		break;
 
 	case(3) :
+		ang = 45.0f;
+		p = glm::vec3(30 * glm::sin(glm::radians(90.0f)), 10*glm::sin(glm::radians(ang)), 30 * glm::cos(glm::radians(90.0f))*glm::sin(glm::radians(ang)));
+		d = glm::vec3(0.0f, 0.0f, 0.0f);
+		u = glm::vec3(0.0f, 1.0f, 0.0f);
 
-		viewingTransformation = glm::translate(glm::vec3(0.0f, 0.0f, -10.0))*
-		glm::rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f))*
-		glm::rotate(glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));// TODO
-
+		camera.setPositionDirectionUp(p, d, u);
+		a = camera.getWorldCoordinateViewPosition();
+		viewingTransformation = camera.getViewingTransformation();
+		std::cout << "{"
+			<< a.x << " " << a.y << " " << a.z
+			<< "}";
 		break;
 
 
 	case(4) :
 
-		viewingTransformation = glm::lookAt(glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f,1.0f,0.0f));
+		ang = -45.0f;
+		p = glm::vec3(glm::sin(glm::radians(ang)), 15.0f, glm::cos(glm::radians(ang)));
+		d = glm::vec3(0.0f, 0.0f, 0.0f);
+		u = glm::vec3(0.0f, 1.0f, 0.0f);
 
-		break;
-
-	case(5) :
-
-		viewingTransformation = glm::lookAt(glm::vec3(0.0f, 7.07f, 7.07f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f,1.0f,0.0f));
-
-		break;
-
-	case(6) :
-
-		viewingTransformation = glm::lookAt(glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		camera.setPositionDirectionUp(p, d, u);
+		a = camera.getWorldCoordinateViewPosition();
+		viewingTransformation = camera.getViewingTransformation();
+		std::cout << "{"
+			<< a.x << " " << a.y << " " << a.z
+			<< "}";
 
 		break;
 
@@ -357,12 +386,10 @@ int main(int argc, char** argv)
 	// Create polygon submenu
 	int menu1id = glutCreateMenu(viewMenu);
 	// Specify menu items and integer identifiers
-	glutAddMenuEntry("View 1", 1);
-	glutAddMenuEntry("View 2", 2);
-	glutAddMenuEntry("View 3", 3);
-	glutAddMenuEntry("View 4", 4);
-	glutAddMenuEntry("View 5", 5);
-	glutAddMenuEntry("View 6", 6);
+	glutAddMenuEntry("View 0", 1);
+	glutAddMenuEntry("View 1", 2);
+	glutAddMenuEntry("View 2", 3);
+	glutAddMenuEntry("View 3", 4);
 	glutAddMenuEntry("Quit", 0);
 
 	// Attach menu to right mouse button
@@ -377,12 +404,16 @@ int main(int argc, char** argv)
 	colorBuffer.setClearColor(blue);
 	
 	// Set the initial viewing tranformation for the scene
-	glm::vec3 p = glm::vec3(0.0f, 0.0f, 12.0f);
-	glm::vec3 d = glm::vec3(0.0f, 0.0f, -1.0f);
-	glm::vec3 u = glm::vec3(0.0f, 1.0f, 0.0f);
+	p = glm::vec3(0.0f, 0.0f, 12.0f);
+	d = glm::vec3(0.0f, 0.0f, 0.0f);
+	u = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	camera.setPositionDirectionUp(p,d,u);
+	a = camera.getWorldCoordinateViewPosition();
 	viewingTransformation = camera.getViewingTransformation();
+	std::cout << "{"
+		<< a.x << " " << a.y << " " << a.z
+		<< "}";
 	//viewingTransformation = glm::translate( glm::vec3(0.0f, 0.0f, -12.0) );
 
 	// Enter the GLUT main loop. Control will not return until the window is closed.

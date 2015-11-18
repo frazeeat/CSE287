@@ -47,7 +47,7 @@ struct Cube
 };
 struct GameBoard
 {
-	GameBoard(float gameWidth = 10.0f,
+	GameBoard(float gameWidth = 8.0f,
 		color c1 = color(0.0f, 0.0f, 0.0f, 1.0f),
 		color c2 = color(1.0f, 1.0f, 1.0f, 1.0f));
 	void draw();
