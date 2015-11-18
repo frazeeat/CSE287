@@ -288,7 +288,7 @@ void viewMenu(int value)
 	case(1) :
 
 		p = glm::vec3(0.0f, 0.0f, 12.0f);
-		d = glm::vec3(0.0f, 0.0f, 0.0f);
+		d = glm::vec3(0.0f, 0.0f, -1.0f);
 		u = glm::vec3(0.0f, 1.0f, 0.0f);
 
 		camera.setPositionDirectionUp(p, d, u);
@@ -302,7 +302,7 @@ void viewMenu(int value)
 
 	case(2) :
 		p = glm::vec3(0.0f, 0.0f, -15.0f);
-		d = glm::vec3(0.0f, 0.0f, 0.0f);
+		d = glm::vec3(0.0f, 0.0f, 1.0f);
 		u = glm::vec3(0.0f, 1.0f, 0.0f);
 
 		camera.setPositionDirectionUp(p, d, u);
@@ -315,8 +315,8 @@ void viewMenu(int value)
 
 	case(3) :
 		ang = 45.0f;
-		p = glm::vec3(30 * glm::sin(glm::radians(90.0f)), 10*glm::sin(glm::radians(ang)), 30 * glm::cos(glm::radians(90.0f))*glm::sin(glm::radians(ang)));
-		d = glm::vec3(0.0f, 0.0f, 0.0f);
+		p = glm::vec3(30 * glm::cos(glm::radians(ang)), 30 * glm::sin(glm::radians(ang)), 0.0f);
+		d = glm::vec3(-0.5f, -0.5f, 0.0f);
 		u = glm::vec3(0.0f, 1.0f, 0.0f);
 
 		camera.setPositionDirectionUp(p, d, u);
@@ -331,9 +331,9 @@ void viewMenu(int value)
 	case(4) :
 
 		ang = -45.0f;
-		p = glm::vec3(glm::sin(glm::radians(ang)), 15.0f, glm::cos(glm::radians(ang)));
-		d = glm::vec3(0.0f, 0.0f, 0.0f);
-		u = glm::vec3(0.0f, 1.0f, 0.0f);
+		p = glm::vec3(0.0f,15.0f,0.0f);
+		d = glm::vec3(0.0f, -1.0f, 0.0f);
+		u = glm::vec3(1.0f, 0.0f, -1.0f);
 
 		camera.setPositionDirectionUp(p, d, u);
 		a = camera.getWorldCoordinateViewPosition();
@@ -405,7 +405,7 @@ int main(int argc, char** argv)
 	
 	// Set the initial viewing tranformation for the scene
 	p = glm::vec3(0.0f, 0.0f, 12.0f);
-	d = glm::vec3(0.0f, 0.0f, 0.0f);
+	d = glm::vec3(0.0f, 0.0f, -1.0f);
 	u = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	camera.setPositionDirectionUp(p,d,u);
