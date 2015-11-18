@@ -13,7 +13,7 @@ void Camera::setPositionDirectionUp(glm::vec3 position,
 
 }
 glm::vec3 Camera::getWorldCoordinateViewPosition(){
-	glm::vec3 a = viewTrans[3].xyz;
+	glm::vec3 a = glm::inverse(viewTrans)[3].xyz;
 	return a;
 }
 glm::mat4 Camera::getViewingTransformation(){
