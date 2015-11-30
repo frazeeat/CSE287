@@ -1,0 +1,20 @@
+﻿Build started 11/28/2015 10:21:42 AM.
+     1>Project "C:\Users\Adam\Desktop\CSE287Lab11\CSE287Lab\CSE287Lab.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (CSE287Lab.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Lab.cpp
+         Lab.cpp
+     1>c:\users\adam\desktop\cse287lab11\cse287lab\lab.cpp(98): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\adam\desktop\cse287lab11\cse287lab\lab.cpp(190): warning C4018: '<' : signed/unsigned mismatch
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Adam\Desktop\CSE287Lab11\Debug\CSE287Lab11.exe" /INCREMENTAL /NOLOGO glew32.lib freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Adam\Desktop\CSE287Lab11\Debug\CSE287Lab11.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Adam\Desktop\CSE287Lab11\Debug\CSE287Lab11.lib" /MACHINE:X86 Debug\BasicIncludesAndDefines.obj
+         Debug\FrameBuffer.obj
+         Debug\Lab.obj
+         Debug\ScanConversion.obj
+         Debug\ShapeFunctions.obj
+         CSE287Lab.vcxproj -> C:\Users\Adam\Desktop\CSE287Lab11\Debug\CSE287Lab11.exe
+     1>Done Building Project "C:\Users\Adam\Desktop\CSE287Lab11\CSE287Lab\CSE287Lab.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:05.15
