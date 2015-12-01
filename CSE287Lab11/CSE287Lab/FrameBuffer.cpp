@@ -138,10 +138,18 @@ void FrameBuffer::setPixel(const int x, const int y, const GLubyte rgba[]) {
 	if (x >= 0 && x < window.width && y >= 0 && y < window.height) {
 
 		// TODO
+		float z = findInterpolatedDepthValue(x, y);
 
+		if (z < getDepth(x, y)){
+			std::memcpy(colorBuffer + BYTES_PER_PIXEL * (x + y * window.width), rgba, BYTES_PER_PIXEL);
+			setDepth(x, y, z);
+		}
 		// Write to the color buffer
+
 		// Depth Test Goes in here
-		std::memcpy(colorBuffer + BYTES_PER_PIXEL * (x + y * window.width), rgba, BYTES_PER_PIXEL);
+
+
+		//std::memcpy(colorBuffer + BYTES_PER_PIXEL * (x + y * window.width), rgba, BYTES_PER_PIXEL);
 
 	}
 
@@ -171,9 +179,8 @@ void FrameBuffer::setV0V1V2(const VertexData & zero, const VertexData & one, con
 // Finds the interpolated depth coordinate based on the depths of the corners of the triangle
 float FrameBuffer::findInterpolatedDepthValue(float x, float y)
 {
-	// TODO on slides find z
-
-	return 0; 
+	// TODO on slides find  z
+	return (-triangleNormal.x*x - triangleNormal.y*y-normalPointDot) / (triangleNormal.z);
 
 } // end findInterpolatedDepthValue
 

@@ -94,12 +94,13 @@ void makeClippingPlanes()
 vector<VertexData> clipAgainstPlane(vector<VertexData> verts, Plane plane)
 {
 	vector<VertexData> output;
-
+	VertexData p1;
+	VertexData p2;
 	for (int i = 0; i < verts.size();i++){
 		//VertexData p1 = verts[(i-1)%3];
-		std::cout << (i + 1) % 3 << std::endl;
-		VertexData p1 = verts[i];
-		VertexData p2 = verts[(i+1)%3];
+		//std::cout << (i + 1) % 3 << std::endl;
+		p1 = verts[i];
+		p2 = verts[(i+1)%3];
 		if (plane.insidePlane(p1)&&plane.insidePlane(p2)){
 			output.push_back(p2);
 		}
@@ -115,6 +116,7 @@ vector<VertexData> clipAgainstPlane(vector<VertexData> verts, Plane plane)
 		}
 	}
 
+
 	// TODO
 
 	return output;
@@ -128,10 +130,23 @@ vector<VertexData> clipAgainstPlane(vector<VertexData> verts, Plane plane)
 vector<VertexData> triangulate(vector<VertexData> poly)
 {
 	vector<VertexData> triangles;
-	while (poly.size()-2 > 3){
+	/*
+	for (int i = 0; i < poly.size() - 2;i++){
+		triangles.push_back(poly[0]);
+		triangles.push_back(poly[i+1]);
+		triangles.push_back(poly[i+2]);
 
 	}
-
+	*/
+	
+	
+	for (int i = 2; i < poly.size() - 1; i++) {
+		triangles.push_back(poly[i]);
+		triangles.push_back(poly[i + 1]);
+		triangles.push_back(poly[i + 2]);
+	}
+	
+	
 	// TODO
 
 	return triangles;
@@ -252,7 +267,8 @@ vector<VertexData> pipeline(const vector<VertexData> & objectCoords)
 	clipCoords = removeBackwardFacingTriangles(clipCoords);
 
 	// Clipping
-	vector<VertexData> ndcCoords = clip(clipCoords);
+	vector<VertexData> ndcCoords = clipCoords;
+	clip(clipCoords);
 
 	vector<VertexData> windowCoords = transformVertices(viewportTransformation, ndcCoords);
 
@@ -322,7 +338,7 @@ static void ResizeCB(int width, int height)
 	yViewportMax = (float)height;
 
 	// Create a perspective projection matrix. glm::perspective vertical field of view is specifed in degrees.
-	projectionTransformation = glm::perspective(45.0f, ((float)xViewportMax - xViewportMin) / ((float)yViewportMax - yViewportMin), 0.1f, 100.0f);
+	projectionTransformation = glm::perspective(45.0f, ((float)xViewportMax - xViewportMin) / ((float)yViewportMax - yViewportMin), 0.1f, 20.0f);
 
 	// Set viewport transformation
 	viewportTransformation =
